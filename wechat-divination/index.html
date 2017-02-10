@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>摇一摇抽签</title>
+    <meta charset="utf-8">
+    <style>
+        * {
+            font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        }
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: url("./img/background.jpg") no-repeat center center;
+            background-size: cover;
+        }
+
+        /* 签筒摇动动画 */
+        @keyframes play {
+            100% {
+                background-position: -737px -2px;
+            }
+        }
+        @-webkit-keyframes play {
+            100% {
+                background-position: -737px -2px;
+            }
+        }
+        .sprite {
+            width: 145px;
+            height: 300px;
+            display: inline-block;
+            overflow: hidden;
+            background: url('./img/animation.png') no-repeat -2px -2px;
+            animation: play 0.8s steps(5) infinite;
+            -webkit-animation: play 0.8s steps(5) infinite;
+        }
+        
+        /* 半透明遮罩层 */
+        .cover {
+            background-size: 50%;
+            background: rgba(0, 0, 0, 0.7) no-repeat top right;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        /* share */
+        .share {
+            position: absolute;
+            width: 60%;
+            top: 2px;
+            right: 2px;
+        }
+
+        /* 解签的过渡图 */
+        .decode .inner {
+            width: 100%;
+            height: 100%;
+            background: url('./img/decode.png') center no-repeat;
+            background-size: 80%;
+        }
+
+        /* 签筒摇动动画容器 */
+        .item {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 26%;
+        }
+
+        /* 静态签筒定位用的容器 */
+        .qiancover{
+            background-size: 50%;
+            position: absolute;
+            width: 100%;
+            top: 26%;
+            display: block;
+        }
+        
+        /* 静态签筒 */
+        .qian {
+            width: 100px;
+            height: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: url('./img/qiantong.png') no-repeat -2px -2px;
+            background-size: contain;
+        }
+        @media only screen and (max-height: 480px) {
+            /*针对iphone 4s这类小屏幕手机优化签筒大小*/
+            .qian {
+                width: 88px;
+            }
+        }
+
+        /* 对联标题 */
+        .title {
+            color: #d50000;
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+        }
+
+
+        /* 摇晃按钮的动画 */
+        @keyframes shake {
+            0% {
+                transform: scaleY(1) translate(30px);
+            }
+            50% {
+                transform: translate(-30px);
+            }
+            100% {
+                transform: scaleY(1) translate(30px);
+            }
+        }
+
+        /* 底部摆动按钮的样式 */
+        .buttonBox {
+            position: absolute;
+            bottom: 5%;
+            width: 100%;
+        }
+        .shakeBtn {
+            width: 76%;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            /*animation: shake 1.5s steps(5) infinite;*/
+            animation: shake 1.2s cubic-bezier(0, 0, 0.36, 1) infinite;
+        }
+
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+    <div style="display:none">
+        <!--这个隐藏的gif用于分享到微信时自动作为缩略图-->
+        <img src="./img/thumbnail.gif" />
+    </div>
+    <h2 class="title">摇一摇, 来抽签</h2>
+    <section class="qiancover">
+        <div class="qian"></div>
+    </section>
+
+    <section class="buttonBox">
+        <img src="./img/button02.png" class="shakeBtn" onclick="start();">
+    </section>
+
+    
+    <div class="cover result">
+        <img src="./img/share.png" class="share">
+        <div class="item">
+            <div class="sprite a1"></div>
+        </div>
+    </div>
+
+    <div class="cover decode">
+        <div class="inner"></div>
+    </div>
+
+    <script src="./js/zepto.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
